@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<body>
+
+
+<form action="{% url 'display_form' %}?filename={{filename}}" method="post">
+    {% csrf_token %}
+    <label for="chart">Select chart type:</label>
+    <select name="chart" id="chart">
+      {% for chartname in typeofplot %}
+      <option value={{chartname}}>{{chartname}}</option>
+      {% endfor %}
+    </select>
+    <br><br>
+
+  <label for="cars">X-axis:</label>
+  <select name="Xaxis" id="Xaxis">
+    {% for i in columns %}
+    <option value={{i}}>{{i}}</option>
+    {% endfor %}
+  </select>
+  <br><br>
+  
+
+  <label for="Yaxis">Y-axis:</label>
+  <select name="Yaxis" id="Yaxis">
+    {% for i in columns %}
+    <option value={{i}}>{{i}}</option>
+    {% endfor %}
+  </select>
+  <br><br>
+  <label>Xlabel:</label>
+  <input type="field" name="xlabel">
+  <br><br>
+  <label>Ylabel:</label>
+  <input type="field" name="ylabel">
+  <br><br>
+  <input type="submit" value="Submit">
+</form>
+
+</body>
+</html>
