@@ -1,8 +1,6 @@
 <!DOCTYPE html>
 <html>
 <body>
-
-
 <form action="{% url 'display_form' %}?filename={{filename}}" method="post">
     {% csrf_token %}
     <label for="chart">Select chart type:</label>
@@ -12,7 +10,6 @@
       {% endfor %}
     </select>
     <br><br>
-
   <label for="cars">X-axis:</label>
   <select name="Xaxis" id="Xaxis">
     {% for i in columns %}
@@ -34,6 +31,13 @@
   <br><br>
   <label>Ylabel:</label>
   <input type="field" name="ylabel">
+  <br><br>
+  <h1> MORE FEATURES </h1>
+  {% for i in features%}
+  <label>{{i}}:</label>
+  <input type="field" name={{i}}>
+  <br><br>
+  {%endfor%}
   <br><br>
   <input type="submit" value="Submit">
 </form>

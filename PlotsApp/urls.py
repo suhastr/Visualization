@@ -6,4 +6,5 @@ urlpatterns = [
 path('',views.index),
 path('plots/',views.process_plots),
 path('display_form/',views.display_form,name='display_form'),
+path('stats/',views.process_statistics),
 ]
