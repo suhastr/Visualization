@@ -5,6 +5,7 @@ import pandas as pd
 import matplotlib.pyplot as plt
 import seaborn as sns
 import os
+from . import generate_plot as gp
 
 def index(request):
     if request.method=='POST':
@@ -35,7 +36,12 @@ def return_img(*args):
     xlabel = args[4]
     ylabel = args[5]
 
-    plot = sns.relplot(data=dataset, x=x_axis, y=y_axis, kind=charttype)
+    plotfunc = gp.KindsOfPlots(file=dataset, x=x_axis, y=y_axis,charttype=charttype)
+    plot = ''
+    if charttype=='line' or charttype=='scatter':
+        plot = plotfunc.line_scatter()
+    else:
+        plot = plotfunc.other_than_line_scatter()
     # Save the plot to a file in the media folder
     plot_path = os.path.join(settings.MEDIA_ROOT, 'my_plot.png')
     plt.xlabel(xlabel)
@@ -61,8 +67,7 @@ def display_form(request):
         ylabel = request.POST['ylabel'] if request.POST['ylabel'] else 'Y-Axis'
         filename = request.GET.get('filename','')
         img =  return_img(filename,charttype,x_axis,y_axis,xlabel,ylabel)
-        print("image:  "+img)
-        return render(request, 'show_plot.html', {'plot_url': 'my_plot.png'})
+        return render(request, 'show_plot.html', {'plot_url': img})
 
 
     
